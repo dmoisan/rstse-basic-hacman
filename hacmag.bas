@@ -259,7 +259,7 @@ ORE
 12210 SV%(I%)=SV%(I%)-1\IF SV%(I%)>0 THEN 13480 ELSE SV%(I%)=VEL%
 12220 IF NOT FNGHB%(SPX%(I%),SPY%(I%)) THEN 12300
 12229 !If in ghost box, move ghost up through door
-12230 IF SSTAT%(I%) THEN 13400 !If in box and eatable, do not move!
+12230 IF SSTAT%(I%) THEN 12330 !If in box and eatable, do not move!
 12240 SDR%(I%)=2\GOTO 13350 !End ghost box exit AI
 12298 !Select preferred target for each ghost
 12300 IF NOT SSTAT%(I%) THEN 12330 !Skip if not eatable
