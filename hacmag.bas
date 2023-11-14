@@ -169,8 +169,10 @@
 4350 SPX%(S1%)=TLX%\SPY%(S1%)=TLY%
 4360 FNEND
 4380 DEF FNSCORE(PTS) !Tally up score and automatically add extra life
-4390 SCORE=SCORE+PTS\LSCORE=LSCORE+PTS\GOSUB 19010
-4400 IF LSCORE>EXTLF THEN PLAY%=PLAY%+1\LSCORE=0\GOSUB 19100
+4390 SCORE=SCORE+PTS\LSCORE=LSCORE+PTS
+4400 IF LSCORE>EXTLF THEN PLAY%=PLAY%+1\LSCORE=0
+4405 PRINT FNAD$(0,0);\PRINT USING "SCORE: ###,###,###",SCORE ! Move score display inside function (required by BASIC-PLUS-2)
+4407 PRINT FNAD$(0,55);\PRINT USING "LIVES: ###",PLAY%; ! Move player lives display inside function (required by BASIC-PLUS-2)
 4410 FNEND
 4445 !** MAIN CODE START **
 4450 DLY=0\X=TIME(0)
@@ -364,7 +366,7 @@ ORE
 15760 IF LEV%<2 OR FNMOD(LEV%,2)<>0 THEN GOTO 10100 ! No halftime show
 15800 GM$="HACMAN"+CVTF$(SCORE)+CVT%$(LEV%)+CVT%$(PLAY%)
 15810 XX$=SYS(CHR$(8%)+GM$) !Pass score, level, lives to core common
-15820 IF NOT DEBUG% THEN CHAIN "HACMAN" 8000 ! Chain halftime show
+15820 IF NOT DEBUG% THEN CHAIN "HACMAN" LINE 8000 ! Chain halftime show
 15830 GOTO 10000
 19005 !** Gameloop Helper Code **
 19009 !* Display score at top of screen
@@ -386,7 +388,7 @@ ORE
 22999 !If game aborted do not pass score data back to front end
 23000 IF ABG% THEN GM$="" ELSE GM$="HACMAN"+CVTF$(SCORE)+CVT%$(LEV%)+CVT%$(PLAY%)
 23040 XX$=SYS(CHR$(8%)+GM$)
-23050 IF NOT DEBUG% THEN CHAIN "HACMAN" 8500
+23050 IF NOT DEBUG% THEN CHAIN "HACMAN" LINE 8500
 23060 PRINT FNNC$;FNCL$ ! Reset ANSI normal character set and clear screen
 23070 XX%=SPEC%(2%,0%,1%,2%)!Re-enable echo
 23080 CLOSE 1%
